@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MealController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,5 +27,7 @@ Route::get('login',[AuthController::class,'login'])->name('login');
 Route::post('authenticate',[AuthController::class,'authenticate'])->name('authenticate');
 
 Route::post('logout',[AuthController::class,'logout'])->name('logout');
+
+Route::resource('meal', MealController::class);
 
 
