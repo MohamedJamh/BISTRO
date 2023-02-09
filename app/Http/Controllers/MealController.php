@@ -15,6 +15,9 @@ class MealController extends Controller
     public function index()
     {
         //
+        return view('Meal.index', [
+            'meals' => Meal::all()
+        ]);
     }
 
     /**
@@ -25,6 +28,7 @@ class MealController extends Controller
     public function create()
     {
         //
+        return view('Meal.create');
     }
 
     /**
@@ -35,7 +39,20 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //post
+        $request->validate([
+            "name" => ['required'],
+            "description" => ['required'],
+            "price" => ['required', 'numeric'],
+        ]);
+
+        $meal = new Meal();
+        $meal->name = $request->input('name');
+        $meal->description = $request->input('description');
+        $meal->price = $request->input('price');
+
+        $meal->save();
+        return redirect()->route('meal.index');
     }
 
     /**
@@ -44,9 +61,10 @@ class MealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Meal $meal)
     {
         //
+        return view('Meal.show',['meal'=>$meal]);
     }
 
     /**
@@ -55,9 +73,10 @@ class MealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Meal $meal)
     {
         //
+        return view('Meal.edit',['meal'=>$meal]);
     }
 
     /**
@@ -67,9 +86,23 @@ class MealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Meal $meal)
     {
-        //
+        //Put | patch
+        
+        $request->validate([
+            "name" => ['required'],
+            "description" => ['required'],
+            "price" => ['required', 'numeric'],
+        ]);
+
+        $meal->name = $request->input('name');
+        $meal->description = $request->input('description');
+        $meal->price = $request->input('price');
+
+        $meal->save();
+
+        return redirect()->route('meal.show', ['meal' => $meal]);
     }
 
     /**
@@ -78,8 +111,10 @@ class MealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Meal $meal)
     {
         //
+        $meal->delete();
+        return redirect()->route('meal.index');
     }
 }
