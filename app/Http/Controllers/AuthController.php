@@ -29,7 +29,7 @@ class AuthController extends Controller
     public function logout(){
         //logout logique here
         auth()->logout();
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
     public function store(Request $request){
         $validatedInput = $request->validate([
