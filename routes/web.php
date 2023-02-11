@@ -31,28 +31,24 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 //
 
-Route::get('/debug', function () {
-    
-});
 
-// defautl route
-Route::get('/', [MealController::class,'index']);
-Route::get('dashboard', DashboardController::class)->name('dashboard')->middleware(['auth','verified']);
+Route::get('user-dashboard', DashboardController::class)->name('dashboard')->middleware(['auth','verified','role:SuperAdmin']);
 
-
-
+//Auth system route
 Route::get('register',[AuthController::class,'register'])->name('registration');
-
-Route::get('login',[AuthController::class,'login'])->name('login')->middleware(['guest']);
-
+Route::get('/',[AuthController::class,'login'])->name('login')->middleware(['guest']);
 Route::post('authenticate',[AuthController::class,'authenticate'])->name('authenticate');
-
 Route::post('logout',[AuthController::class,'logout'])->name('logout');
-
 Route::post('store',[AuthController::class,'store'])->name('user.store');
-
+//
 
 // meal routes
 Route::resource('meal', MealController::class)->middleware(['auth','verified']);
+//
 
+//debug route
+Route::get('/debug', function () {
+    // debug problemes here 
+});
+//
 

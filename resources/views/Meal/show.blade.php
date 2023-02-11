@@ -5,6 +5,7 @@
         <p>{{$meal->description}}</p>
         <small>{{$meal->price}}</small>
     </div>
+    @if (auth()->user()->roles()->where('name','Admin')->exists())
     <div class="flex gap-2">
         <a href="{{ route('meal.edit',['meal'=>$meal]) }}">edit</a>
         <form action="{{route('meal.destroy',['meal'=>$meal])}}" method="POST">
@@ -13,4 +14,5 @@
             <button type="submit">Delete</button>
         </form>
     </div>
+    @endif
 </x-layout>

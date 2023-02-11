@@ -18,6 +18,9 @@
                 <th scope="col" class="px-6 py-3">
                     Is Admin
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    Switch Roles
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +46,21 @@
                         <td class="px-6 py-4">
                             --
                         </td>
+                    @endif
+                    @if($user->roles()->where('name','Admin')->exists())
+                    <td class="px-6 py-4">
+                        Yes
+                    </td>
+                    <td class="px-6 py-4">
+                        <button type="submit">Revoke Admin Role</button>
+                    </td>
+                    @else
+                    <td class="px-6 py-4">
+                        No
+                    </td>
+                    <td class="px-6 py-4">
+                        <button type="submit">Grant Admin Role</button>
+                    </td>
                     @endif
                 </tr>
             @endforeach
