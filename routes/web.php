@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\User;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -30,9 +31,12 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect('dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 //
+Route::middleware(['auth','role:SuperAdmin'])->group(function(){
+    Route::get('user-dashboard', DashboardController::class)->name('dashboard');
 
-
-Route::get('user-dashboard', DashboardController::class)->name('dashboard')->middleware(['auth','verified','role:SuperAdmin']);
+    Route::post('switch-user-role/{user}/{action}',[DashboardController::class,'switchUserRole'])->name('dashboard.switch-user-role');
+});
+    
 
 //Auth system route
 Route::get('register',[AuthController::class,'register'])->name('registration');
@@ -48,7 +52,7 @@ Route::resource('meal', MealController::class)->middleware(['auth','verified']);
 
 //debug route
 Route::get('/debug', function () {
-    // debug problemes here 
+    // debug problemes here
 });
 //
 

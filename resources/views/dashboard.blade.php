@@ -52,14 +52,21 @@
                         Yes
                     </td>
                     <td class="px-6 py-4">
-                        <button type="submit">Revoke Admin Role</button>
+                        <form action="{{ route('dashboard.switch-user-role',['user'=>$user->id,'action'=>'Detach']) }}" method="POST">
+                            @csrf
+                            <button type="submit">Revoke Admin Role</button>
+                        </form>
                     </td>
                     @else
                     <td class="px-6 py-4">
                         No
                     </td>
                     <td class="px-6 py-4">
-                        <button type="submit">Grant Admin Role</button>
+                        {{-- method | admin  --}}
+                        <form action="{{ route('dashboard.switch-user-role',['user'=>$user->id,'action'=>'Attach']) }}" method="POST">
+                            @csrf
+                            <button type="submit">Grant Admin Role</button>
+                        </form>
                     </td>
                     @endif
                 </tr>
