@@ -11,7 +11,7 @@
             <input type="password" name="password" id="password" class="border border-black rounded-lg">
         </p>
         <div class="flex gap-2">
-            <a href="{{ route('registration') }}">Do not have an account ?</a>
+            <a href="{{ route('password.request') }}">Forgot Password ?</a>
             <button class="border border-black rounded-lg px-4 w-32"  type="submit">Authenticate</button>
         </div>
     </form>

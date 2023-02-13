@@ -6,6 +6,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+
 class AuthController extends Controller
 {
     public function login(){
@@ -22,7 +23,7 @@ class AuthController extends Controller
         ]);
 
         if(auth()->attempt($request->only('email','password'))){
-            return redirect()->route('dashboard');
+            return redirect()->route('meal.index');
         }
         return redirect()->back()->withErrors('Email or password are incorrect');
     }
