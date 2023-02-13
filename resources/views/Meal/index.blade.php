@@ -1,17 +1,10 @@
 <x-layout title="all Meals">
-    <p>
+    <x-button>
         <a href="{{route('meal.create')}}">Add new meal</a>
-    </p>
-    <div>
+    </x-button>
+    <div class="flex flex-wrap gap-2 justify-center">
         @foreach ($meals as $meal)
-            <div>
-                <br>
-                <h2>
-                    <a href="{{ route('meal.show',['meal'=>$meal->id]) }}">{{$meal->name}}</a>
-                </h2>
-                <p>{{$meal->description}}</p>
-                <small>{{$meal->price}}</small>
-            </div>
+            <x-meal-card title="{{$meal->name}}" price="{{$meal->price}}" meal_id="{{$meal->id}}" ></x-meal-card>
         @endforeach
     </div>
 </x-layout>
