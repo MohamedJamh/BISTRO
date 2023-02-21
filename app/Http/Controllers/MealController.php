@@ -44,6 +44,7 @@ class MealController extends Controller
             "name" => ['required'],
             "description" => ['required'],
             "price" => ['required', 'numeric'],
+            "thumbnail" => ['required']
         ]);
 
         $meal = new Meal();
@@ -51,6 +52,10 @@ class MealController extends Controller
         $meal->description = $request->input('description');
         $meal->price = $request->input('price');
 
+        $path = $request->file('thumbnail')->store('public/assets/img/meals');
+        
+        $meal->image = '/storage/'. substr($path,7);
+        
         $meal->save();
         return redirect()->route('meal.index');
     }
@@ -99,9 +104,11 @@ class MealController extends Controller
         $meal->name = $request->input('name');
         $meal->description = $request->input('description');
         $meal->price = $request->input('price');
-
+        if($request->file('thumbnail') != null){
+            $path = $request->file('thumbnail')->store('public/assets/img/meals');
+            $meal->image = '/storage/'. substr($path,7);
+        }
         $meal->save();
-
         return redirect()->route('meal.show', ['meal' => $meal]);
     }
 

@@ -91,7 +91,7 @@ Route::middleware(['guest'])->group(function(){
 
 Route::middleware(['auth'])->group(function(){
     //logout route
-    Route::post('logout',[AuthController::class,'logout'])->name('logout');
+    Route::post('/logout',[AuthController::class,'logout'])->name('logout');
     // email confirmation routes ---------------------------
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
@@ -112,24 +112,23 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware(['verified'])->group(function(){
         
         // meal routes--------------------------------
-        Route::resource('meal', MealController::class);
+        Route::resource('/meal', MealController::class);
         
         //profile routes-------------------------------
-        Route::get('profile',[UserController::class,'index'])->name('user.profile');
-        Route::put('reset-password',[UserController::class,'updatePassword'])->name('user.reset-password');
-        Route::put('reset-details',[UserController::class,'updateDetails'])->name('user.change-details');
+        Route::get('/profile',[UserController::class,'index'])->name('user.profile');
+        Route::put('/reset-password',[UserController::class,'updatePassword'])->name('user.reset-password');
+        Route::put('/reset-details',[UserController::class,'updateDetails'])->name('user.change-details');
         
         //super admin routes----------------------------
         Route::middleware(['role:SuperAdmin'])->group(function(){
-            Route::get('user-dashboard', DashboardController::class)->name('dashboard');
-            Route::post('switch-user-role/{user}/{action}',[DashboardController::class,'switchUserRole'])->name('dashboard.switch-user-role');
+            Route::get('/user-dashboard', DashboardController::class)->name('dashboard');
+            Route::post('/switch-user-role/{user}/{action}',[DashboardController::class,'switchUserRole'])->name('dashboard.switch-user-role');
         });
     });
 });
 
 //debug route
 Route::get('/debug', function () {
-    // debug problemes here
 });
 //
 

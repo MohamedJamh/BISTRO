@@ -1,8 +1,8 @@
-@props(['title','price','meal_id'])
-<div class="bg-white border border-gray-200 rounded-lg shadow w-1/3">
-    <a href="#">
-        <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-    </a>
+@props(['title','price','meal_id','image'])
+<div class="bg-white border border-gray-200 rounded-lg shadow md:w-1/2">
+    <div class="h-52 overflow-hidden">
+        <img class="rounded-t-lg" src="{{asset($image)}}" alt="{{$title}}" />
+    </div>
     <div class="p-5">
         <a href="#">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{$title}}</h5>
